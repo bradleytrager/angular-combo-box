@@ -4,7 +4,7 @@
   "description": "Angular directive which combines a select element with a text input.",
   "main": "angular-combo-box.js",
   "scripts": {
-        "test": "grunt test"
+        "test": "grunt"
   },
   "repository": {
     "type": "git",
