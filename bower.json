@@ -1,0 +1,18 @@
+{
+  "name": "angular-combo-box",
+  "version": "0.1",
+  "homepage": "https://github.com/bradleytrager/angular-combo-box",
+  "description": "Angular directive which combines a select element with a text input.",
+  "main": "angular-combo-box.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angularjs": "~1.3.15"
+  }
+}

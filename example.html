@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<div ng-app="ngComboBoxExample">
+    <div ng-controller="myController">
+        <combo-box options="options" combo-model="color"></combo-box>
+        <br/>Color: <span ng-bind="color"></span>
+
+    </div>
+</div>
+<script src="bower_components/angularjs/angular.min.js"></script>
+<script src="angular-combo-box.js" ></script>
+<script>
+	angular.module('ngComboBoxExample', ['ngComboBox'])
+    .controller('myController', function ($scope) {
+    $scope.options = [
+        'Blue',
+        'Red',
+        'Pink',
+        'Purple',
+        'Green'];
+    $scope.color = '';
+
+});
+</script>
+</body>
+</html>
