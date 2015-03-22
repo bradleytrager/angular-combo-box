@@ -4,7 +4,7 @@
   "description": "Angular directive which combines a select element with a text input.",
   "main": "angular-combo-box.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "grunt test"
   },
   "repository": {
     "type": "git",
