@@ -13,6 +13,7 @@
     "tests"
   ],
   "devDependencies": {
-    "angularjs": "~1.3.15"
+    "angularjs": "~1.3.15",
+    "angular-mocks": "~1.3.15"
   }
 }

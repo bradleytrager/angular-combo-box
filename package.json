@@ -1,0 +1,26 @@
+{
+  "name": "angular-combo-box",
+  "version": "0.0.0",
+  "description": "Angular directive which combines a select element with a text input.",
+  "main": "angular-combo-box.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bradleytrager/angular-combo-box.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bradleytrager/angular-combo-box/issues"
+  },
+  "homepage": "https://github.com/bradleytrager/angular-combo-box",
+  "devDependencies": {
+    "jasmine-core": "^2.2.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.5",
+    "karma-jasmine-html-reporter": "^0.1.7",
+    "karma-phantomjs-launcher": "^0.1.4"
+  }
+}

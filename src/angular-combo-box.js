@@ -18,7 +18,7 @@ angular.module('ngComboBox', [])
 })
     .controller('comboBoxController', function ($scope) {
     $scope.optionChanged = setComboModel;
-    if ($scope.comboModel !== '') {
+    if ($scope.comboModel) {
         setInput($scope.comboModel);
     }
 
