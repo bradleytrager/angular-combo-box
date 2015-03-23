@@ -3,6 +3,8 @@ Lightweight Angular JS directive which combines a select element with a text inp
 
 [![Build Status](https://travis-ci.org/bradleytrager/angular-combo-box.svg)](https://travis-ci.org/bradleytrager/angular-combo-box)
 
+[Demo](http://bradleytrager.github.io/angular-combo-box/)
+
 ##Install
 
 ####Manual download 
