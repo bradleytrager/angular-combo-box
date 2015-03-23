@@ -15,8 +15,9 @@ bower install angular-combo-box
 
 ##Usage
 ```html
-<combo-box 
-    options="options" //The list of predefined options
+<combo-box
+	label="--Select--" //The default option if nothing is chosen
+    options="options" //An array of predefined options
     combo-model="comboModel" //The bound value of the combo box
     other-label="An option not on the list..." //Optional label for other input
 ></combo-box>

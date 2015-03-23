@@ -73,6 +73,18 @@ describe('angular combo box', function() {
         });
     });
 
+    describe('passing a custom value for the label', function() {
+        it('uses "Other" by default', function() {
+            var elem = compileDirective(angular.element('<combo-box ' +
+                'label="my custom label"' +
+                'options="options" ' +
+                'combo-model="comboModel"></combo-box>'));
+            var options = elem.find('option');
+            var otherLabel = options[0].innerHTML;
+            expect(otherLabel).toBe('my custom label');
+        });
+    });
+
 
 
     function compileDirective(elem) {

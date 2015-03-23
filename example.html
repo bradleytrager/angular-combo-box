@@ -7,7 +7,12 @@
 
 <div ng-app="ngComboBoxExample">
     <div ng-controller="myController">
-        <combo-box options="options" combo-model="color" other-label="A color not on the list..."></combo-box>
+        <combo-box 
+            options="options" 
+            combo-model="color" 
+            other-label="A color not on the list..."
+            label="--Select a Color--"
+        ></combo-box>
         <br/>Color: <span ng-bind="color"></span>
 
     </div>

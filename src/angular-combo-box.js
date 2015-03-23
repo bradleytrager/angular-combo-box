@@ -5,10 +5,11 @@ angular.module('ngComboBox', [])
             scope: {
                 options: '=',
                 comboModel: '=',
-                otherLabel: '@?'
+                otherLabel: '@?',
+                label: '@?'
             },
             template: '<select ng-model="selected" ng-change="optionChanged(selected)">' +
-                '    <option value="">--Select--</option>' +
+                '    <option value="">{{label}}</option>' +
                 '    <option ng-repeat="option in options">{{option}}</option>' +
                 '    <option value="other" ng-bind="otherLabel"></option>' +
                 '</select>' +
@@ -17,6 +18,9 @@ angular.module('ngComboBox', [])
             compile: function(el, attrs) {
                 if (!attrs.otherLabel) {
                     attrs.otherLabel = 'Other';
+                }
+                if (!attrs.label) {
+                    attrs.label = '';
                 }
             },
             controller: 'comboBoxController'
