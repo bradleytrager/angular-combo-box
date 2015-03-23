@@ -12,3 +12,23 @@ Download latest release from [here](https://github.com/bradleytrager/angular-com
 ```sh
 bower install angular-combo-box
 ```
+
+##Usage
+```html
+<combo-box 
+    options="options" //The list of predefined options
+    combo-model="comboModel" //The bound value of the combo box
+    other-label="An option not on the list..." //Optional label for other input
+></combo-box>
+```
+```JavaScript
+//Include 'ngComboBox as a module dependency
+angular.module('ngComboBoxExample', ['ngComboBox'])
+    .controller('myController', function ($scope) {
+    $scope.options = [
+        //List of predefined options    
+    ];
+    //The bound value of the combo box
+    $scope.comboModel = '';
+});
+```
