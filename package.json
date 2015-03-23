@@ -4,7 +4,7 @@
   "description": "Angular directive which combines a select element with a text input.",
   "main": "angular-combo-box.js",
   "scripts": {
-        "test": "grunt"
+    "test": "grunt"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,9 @@
   "homepage": "https://github.com/bradleytrager/angular-combo-box",
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.1",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-jsbeautifier": "^0.2.10",
     "grunt-karma": "^0.10.1",
     "jasmine-core": "^2.2.0",
     "karma-chrome-launcher": "^0.1.7",
