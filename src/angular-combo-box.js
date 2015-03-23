@@ -4,15 +4,21 @@ angular.module('ngComboBox', [])
             restrict: 'E',
             scope: {
                 options: '=',
-                comboModel: '='
+                comboModel: '=',
+                otherLabel: '@?'
             },
             template: '<select ng-model="selected" ng-change="optionChanged(selected)">' +
                 '    <option value="">--Select--</option>' +
                 '    <option ng-repeat="option in options">{{option}}</option>' +
-                '    <option value="other">Other</option>' +
+                '    <option value="other" ng-bind="otherLabel"></option>' +
                 '</select>' +
                 '<br />' +
                 '<input type="text" ng-model="other" ng-change="optionChanged(selected)" ng-show="selected === \'other\'" />',
+            compile: function(el, attrs) {
+                if (!attrs.otherLabel) {
+                    attrs.otherLabel = 'Other';
+                }
+            },
             controller: 'comboBoxController'
         };
     })
