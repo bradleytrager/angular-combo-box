@@ -1,6 +1,6 @@
 {
   "name": "angular-combo-box",
-  "version": "0.1",
+  "version": "0.3.2",
   "homepage": "https://github.com/bradleytrager/angular-combo-box",
   "description": "Angular directive which combines a select element with a text input.",
   "main": "angular-combo-box.js",
