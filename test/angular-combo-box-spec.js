@@ -1,13 +1,14 @@
 describe('angular combo box', function() {
-    var $scope, $compile;
+    var $scope, $compile, $timeout;
 
     beforeEach(function() {
 
         module('ngComboBox');
 
-        inject(function(_$compile_, $rootScope) {
+        inject(function(_$compile_, $rootScope, _$timeout_) {
             $scope = $rootScope;
             $compile = _$compile_;
+            $timeout = _$timeout_;
         });
 
     });
@@ -51,6 +52,18 @@ describe('angular combo box', function() {
             elem.find('select').val('one').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
             expect($scope.comboModel).toBe('one');
+        });
+
+        it('focuses on the other input when the other option is chosen', function() {
+            $scope.comboModel = '';
+            var elem = compileDirective();
+            document.body.appendChild(elem[0]);
+            elem.find('select').val('other').triggerHandler('change');
+            expect(elem.find('input').hasClass('ng-hide')).toBe(false);
+            var input = elem.find('input');
+            $timeout.flush();
+            expect(document.activeElement).toBe(input[0]);
+            elem.remove();
         });
     });
 

@@ -1,5 +1,5 @@
 angular.module('ngComboBox', [])
-    .directive('comboBox', function() {
+    .directive('comboBox', function($timeout) {
         return {
             restrict: 'E',
             scope: {
@@ -26,27 +26,33 @@ angular.module('ngComboBox', [])
             controller: 'comboBoxController'
         };
     })
-    .controller('comboBoxController', ['$scope', function($scope) {
-        $scope.optionChanged = setComboModel;
-        if ($scope.comboModel) {
-            setInput($scope.comboModel);
-        }
+    .controller('comboBoxController', ['$scope', '$element', '$timeout',
+        function($scope, $element, $timeout) {
+            $scope.optionChanged = setComboModel;
+            if ($scope.comboModel) {
+                setInput($scope.comboModel);
+            }
 
-        function setInput(value) {
-            if ($scope.options.indexOf(value) !== -1) {
-                $scope.selected = value;
-            } else {
-                $scope.selected = 'other';
-                $scope.other = value;
+            function setInput(value) {
+                if ($scope.options.indexOf(value) !== -1) {
+                    $scope.selected = value;
+                } else {
+                    $scope.selected = 'other';
+                    $scope.other = value;
+
+                }
+            }
+
+            function setComboModel(option) {
+                if (option !== 'other') {
+                    $scope.other = '';
+                    $scope.comboModel = option;
+                } else {
+                    $scope.comboModel = $scope.other;
+                    $timeout(function() {
+                        $element.find('input')[0].focus();
+                    });
+                }
             }
         }
-
-        function setComboModel(option) {
-            if (option !== 'other') {
-                $scope.other = '';
-                $scope.comboModel = option;
-            } else {
-                $scope.comboModel = $scope.other;
-            }
-        }
-    }]);
+    ]);
