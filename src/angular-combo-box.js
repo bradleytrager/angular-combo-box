@@ -33,8 +33,8 @@ angular.module('ngComboBox', [])
                 setInput($scope.comboModel);
             }
 
-            $scope.$watch('comboModel', function(v) {
-                setInput(v);
+            $scope.$watch('comboModel', function(newValue) {
+                setInput(newValue);
             });
 
             function setInput(value) {
@@ -46,7 +46,6 @@ angular.module('ngComboBox', [])
                 } else {
                     $scope.selected = 'other';
                     $scope.other = value;
-
                 }
             }
 
