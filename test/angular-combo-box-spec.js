@@ -179,7 +179,7 @@ describe('angular combo box', function() {
         });
 
     });
-    
+
     describe('edge cases', function() {
         it('does not swith to other when defualt is selected', function() {
             $scope.comboModel = null;
