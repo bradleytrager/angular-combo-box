@@ -32,6 +32,6 @@ angular.module('ngComboBoxExample', ['ngComboBox'])
         //List of predefined options    
     ];
     //The bound value of the combo box
-    $scope.comboModel = '';
+    $scope.comboModel = null;
 });
 ```
