@@ -38,10 +38,10 @@ angular.module('ngComboBox', [])
             });
 
             function setInput(value) {
-                if (value === null || value === "") {
+                if (value === null) {
                     $scope.selected = '';
                     $scope.other = '';
-                } else if ($scope.options.indexOf(value) !== -1) {
+                } else if ($scope.options.indexOf(value) !== -1 && document.activeElement != $element.find('input')[0]) {
                     $scope.selected = value;
                 } else {
                     $scope.selected = 'other';
