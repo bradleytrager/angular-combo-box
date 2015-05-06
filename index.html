@@ -37,6 +37,7 @@
                     <div ng-controller="myController">
                         <combo-box options="options" combo-model="color" other-label="A color not on the list..." label="--Select a Color--"></combo-box>
                         <div>Selected Color: <span ng-bind="color"></span></div>
+                        <div><button ng-click="reset()">Reset</button></div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -83,6 +84,9 @@
                 'Green'
             ];
             $scope.color = '';
+            $scope.reset = function() {
+                $scope.color = '';
+            };
         });
     </script>
     

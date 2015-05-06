@@ -1,6 +1,5 @@
 {
   "name": "angular-combo-box",
-  "version": "0.4.0",
   "homepage": "https://github.com/bradleytrager/angular-combo-box",
   "description": "Angular directive which combines a select element with a text input.",
   "main": "angular-combo-box.js",
@@ -18,14 +17,13 @@
   "dependencies": {
     "angularjs": "~1.3.15"
   },
-  "_release": "0.4.0",
+  "_release": "4d48141844",
   "_resolution": {
-    "type": "version",
-    "tag": "v0.4.0",
-    "commit": "e92d3614bfbc1a9030f7e9268844d0ca55097906"
+    "type": "branch",
+    "branch": "model-change-listener",
+    "commit": "4d48141844b43c084abcd3eef88cbebef652c905"
   },
-  "_source": "git://github.com/bradleytrager/angular-combo-box.git",
-  "_target": "~0.4.0",
-  "_originalSource": "angular-combo-box",
-  "_direct": true
+  "_source": "git@github.com:bradleytrager/angular-combo-box.git",
+  "_target": "model-change-listener",
+  "_originalSource": "git@github.com:bradleytrager/angular-combo-box.git"
 }
