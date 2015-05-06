@@ -16,6 +16,6 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.4",
-    "angular-combo-box": "git@github.com:bradleytrager/angular-combo-box.git#model-change-listener"
+    "angular-combo-box": "*"
   }
 }
