@@ -98,6 +98,40 @@ describe('angular combo box', function() {
         });
     });
 
+    describe('updating the model from a controller', function() {
+        it('updates the select box if the value is an option', function() {
+            $scope.comboModel = '';
+            var elem = compileDirective();
+            $scope.comboModel = 'one';
+            $scope.$digest();
+            expect(elem.find('select').val()).toBe('one');
+        });
+
+        it('updates the select box if the value is not an option', function() {
+            $scope.comboModel = '';
+            var elem = compileDirective();
+            $scope.comboModel = 'something else';
+            $scope.$digest();
+            expect(elem.find('select').val()).toBe('other');
+            expect(elem.find('input').val()).toBe('something else');
+        });
+
+        it('resets the combo box', function() {
+            var elem = compileDirective(angular.element('<combo-box ' +
+                'label="my custom label"' +
+                'options="options" ' +
+                'combo-model="comboModel"></combo-box>'));
+            $scope.comboModel = 'one';
+            $scope.$digest();
+            expect(elem.find('select').val()).toBe('one');
+            $scope.comboModel = '';
+            $scope.$digest();
+            var options = elem.find('option');
+            var otherLabel = options[0].innerHTML;
+            expect(otherLabel).toBe('my custom label');
+        });
+
+    });
 
 
     function compileDirective(elem) {
