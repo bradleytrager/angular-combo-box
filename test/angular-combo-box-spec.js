@@ -126,9 +126,39 @@ describe('angular combo box', function() {
             expect(elem.find('select').val()).toBe('one');
             $scope.comboModel = '';
             $scope.$digest();
-            var options = elem.find('option');
-            var otherLabel = options[0].innerHTML;
-            expect(otherLabel).toBe('my custom label');
+            expect(elem.find('input').hasClass('ng-hide')).toBe(true);
+            var select = elem.find('select')[0];
+            expect(select.options[select.selectedIndex].innerHTML).toBe('my custom label');
+        });
+
+        it('resets the combo box with other value', function() {
+            var elem = compileDirective(angular.element('<combo-box ' +
+                'label="my custom label"' +
+                'options="options" ' +
+                'combo-model="comboModel"></combo-box>'));
+            $scope.comboModel = 'something else';
+            $scope.$digest();
+            expect(elem.find('select').val()).toBe('other');
+            expect(elem.find('input').val()).toBe('something else');
+            $scope.comboModel = '';
+            $scope.$digest();
+            expect(elem.find('input').hasClass('ng-hide')).toBe(true);
+            var select = elem.find('select')[0];
+            expect(select.options[select.selectedIndex].innerHTML).toBe('my custom label');
+        });
+
+        it('resets the combo box with blank other value', function() {
+            var elem = compileDirective(angular.element('<combo-box ' +
+                'label="my custom label"' +
+                'options="options" ' +
+                'combo-model="comboModel"></combo-box>'));
+            elem.find('select').val('other').triggerHandler('change');
+            expect(elem.find('input').hasClass('ng-hide')).toBe(false);
+            $scope.comboModel = '';
+            $scope.$digest();
+            expect(elem.find('input').hasClass('ng-hide')).toBe(true);
+            var select = elem.find('select')[0];
+            expect(select.options[select.selectedIndex].innerHTML).toBe('my custom label');
         });
 
     });
