@@ -33,13 +33,19 @@ angular.module('ngComboBox', [])
                 setInput($scope.comboModel);
             }
 
+            $scope.$watch('comboModel', function(newValue) {
+                setInput(newValue);
+            });
+
             function setInput(value) {
-                if ($scope.options.indexOf(value) !== -1) {
+                if (value === null) {
+                    $scope.selected = '';
+                    $scope.other = '';
+                } else if ($scope.options.indexOf(value) !== -1 && document.activeElement != $element.find('input')[0]) {
                     $scope.selected = value;
                 } else {
                     $scope.selected = 'other';
                     $scope.other = value;
-
                 }
             }
 
