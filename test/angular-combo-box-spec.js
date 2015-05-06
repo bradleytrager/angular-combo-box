@@ -179,7 +179,19 @@ describe('angular combo box', function() {
         });
 
     });
-
+    
+    describe('edge cases', function() {
+        it('does not swith to other when defualt is selected', function() {
+            $scope.comboModel = null;
+            var elem = compileDirective();
+            elem.find('select').val('one').triggerHandler('change');
+            expect(elem.find('input').hasClass('ng-hide')).toBe(true);
+            expect($scope.comboModel).toBe('one');
+            elem.find('select').val('').triggerHandler('change');
+            var select = elem.find('select')[0];
+            expect(select.options[select.selectedIndex].innerHTML).toBe('');
+        });
+    });
 
     function compileDirective(elem) {
         if (!elem) {

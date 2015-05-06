@@ -50,7 +50,10 @@ angular.module('ngComboBox', [])
             }
 
             function setComboModel(option) {
-                if (option !== 'other') {
+                if (option === '') {
+                    $scope.other = '';
+                    $scope.comboModel = null;
+                } else if (option !== 'other') {
                     $scope.other = '';
                     $scope.comboModel = option;
                 } else {
