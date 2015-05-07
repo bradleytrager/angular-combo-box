@@ -50,7 +50,7 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'dist/angular-combo-box.min.js': ['src/angular-combo-box.js', 'tmp/templates.js']
+                    'dist/angular-combo-box.min.js': ['src/*.js', 'tmp/templates.js']
                 }
             }
         },
