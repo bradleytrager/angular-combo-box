@@ -7,30 +7,32 @@
 
 <div ng-app="ngComboBoxExample">
     <div ng-controller="myController">
-        <combo-box 
-            options="options" 
-            combo-model="color" 
-            other-label="A color not on the list..."
-            label="--Select a Color--"
-        ></combo-box>
-        <br/>Color: <span ng-bind="color"></span>
-
+        <combo-box
+    options="options" 
+    combo-model="color" 
+    label="--Select a Color--"
+    other-label="A color not on the list..." >
+</combo-box>
+<div>Selected Color: <span ng-bind="color"></span></div>
+<div><button ng-click="reset()">Reset</button></div>
     </div>
 </div>
 <script src="bower_components/angularjs/angular.min.js"></script>
-<script src="src/angular-combo-box.js" ></script>
+<script src="dist/angular-combo-box.min.js" ></script>
 <script>
 	angular.module('ngComboBoxExample', ['ngComboBox'])
-    .controller('myController', function ($scope) {
-    $scope.options = [
-        'Blue',
-        'Red',
-        'Pink',
-        'Purple',
-        'Green'];
-    $scope.color = '';
-
-});
+        .controller('myController', function ($scope) {
+        $scope.options = [
+            'Blue',
+            'Red',
+            'Pink',
+            'Purple',
+            'Green'];
+        $scope.color = null;
+        $scope.reset = function () {
+            $scope.color = null;
+        };
+    });
 </script>
 </body>
 </html>

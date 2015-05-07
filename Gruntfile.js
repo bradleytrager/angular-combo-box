@@ -3,6 +3,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks("grunt-jsbeautifier");
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-html2js');
 
     grunt.initConfig({
         jshint: {
@@ -35,24 +36,27 @@ module.exports = function(grunt) {
                 'unescape_strings': false
             }
         },
+
+        html2js: {
+            // options: {
+            //   // custom options, see below
+            // },
+            main: {
+                src: ['src/combo-box.html'],
+                dest: 'tmp/templates.js'
+            },
+        },
+
         uglify: {
             dist: {
                 files: {
-                    'dist/angular-combo-box.min.js': ['src/angular-combo-box.js']
+                    'dist/angular-combo-box.min.js': ['src/angular-combo-box.js', 'tmp/templates.js']
                 }
             }
         },
         karma: {
             unit: {
                 configFile: 'karma.conf.js',
-                files: [{
-                    src: [
-                        'bower_components/angularjs/angular.js',
-                        'bower_components/angular-mocks/angular-mocks.js',
-                        'src/*.js',
-                        'test/*.js'
-                    ]
-                }],
                 singleRun: true,
                 reporters: ['dots'],
                 browsers: ['PhantomJS']
@@ -61,5 +65,5 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('default', ['jshint', 'jsbeautifier', 'uglify:dist', 'karma:unit']);
+    grunt.registerTask('default', ['jshint', 'jsbeautifier', 'html2js', 'uglify:dist', 'karma:unit']);
 };

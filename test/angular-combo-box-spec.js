@@ -4,7 +4,6 @@ describe('angular combo box', function() {
     beforeEach(function() {
 
         module('ngComboBox');
-
         inject(function(_$compile_, $rootScope, _$timeout_) {
             $scope = $rootScope;
             $compile = _$compile_;
