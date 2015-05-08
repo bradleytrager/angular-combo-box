@@ -2,20 +2,24 @@ angular.module('ngComboBox.controller', [])
     .controller('comboBoxController', ['$scope', '$element', '$timeout', comboBoxController]);
 
 function comboBoxController($scope, $element, $timeout) {
-    $scope.optionChanged = setComboModel;
+    $scope.setModelFromInput = setModelFromInput;
     if ($scope.comboModel) {
-        setInput($scope.comboModel);
+        setInputFromModel($scope.comboModel);
     }
 
     $scope.$watch('comboModel', function(newValue) {
-        setInput(newValue);
+        var isNotEnteringOtherValue = document.activeElement != $element.find('input')[0];
+        if (isNotEnteringOtherValue) {
+            setInputFromModel(newValue);
+        }
     });
 
-    function setInput(value) {
-        if (value === null) {
+    function setInputFromModel(value) {
+        var isDefaultOption = value === null;
+        if (isDefaultOption) {
             $scope.selected = '';
             $scope.other = '';
-        } else if ($scope.options.indexOf(value) !== -1 && document.activeElement != $element.find('input')[0]) {
+        } else if (isAnOption(value)) {
             $scope.selected = value;
         } else {
             $scope.selected = 'other';
@@ -23,18 +27,23 @@ function comboBoxController($scope, $element, $timeout) {
         }
     }
 
-    function setComboModel(option) {
-        if (option === '') {
-            $scope.other = '';
+    function setModelFromInput(value) {
+        var isDefaultOption = value === '';
+        if (isDefaultOption) {
             $scope.comboModel = null;
-        } else if (option !== 'other') {
             $scope.other = '';
-            $scope.comboModel = option;
+        } else if (isAnOption(value)) {
+            $scope.other = '';
+            $scope.comboModel = value;
         } else {
             $scope.comboModel = $scope.other;
             $timeout(function() {
                 $element.find('input')[0].focus();
             });
         }
+    }
+
+    function isAnOption(value) {
+        return $scope.options.indexOf(value) !== -1;
     }
 }

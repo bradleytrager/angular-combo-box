@@ -1,5 +1,5 @@
 # angular-combo-box
-Lightweight Angular JS directive which combines a select element with a text input.
+Lightweight Angular JS directive (~1K minified) which combines a select element with a text input.
 
 [![Build Status](https://travis-ci.org/bradleytrager/angular-combo-box.svg)](https://travis-ci.org/bradleytrager/angular-combo-box)
 
