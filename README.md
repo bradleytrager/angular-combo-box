@@ -22,6 +22,8 @@ bower install angular-combo-box
     options="options" //An array of predefined options
     combo-model="comboModel" //The bound value of the combo box
     other-label="An option not on the list..." //Optional label for other input
+    select-class="{'red': true}" //Optional expression for ng-class on select
+    input-class="{'green': true}" //Optional expression for ng-class on input
 ></combo-box>
 ```
 ```JavaScript
