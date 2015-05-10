@@ -4,30 +4,42 @@
 	<title></title>
 </head>
 <body>
-
-<div ng-app="ngComboBoxExample">
+  <style type="text/css" media="screen">
+      .red {
+          color: red;
+          border: 1px solid red;
+      }
+      .green {
+          color: green;
+          border: 1px solid green;
+      }
+  </style>
+  <div ng-app="ngComboBoxExample">
     <div ng-controller="myController">
         <combo-box
-    options="options" 
-    combo-model="color" 
-    label="--Select a Color--"
-    other-label="A color not on the list..." >
-</combo-box>
-<div>Selected Color: <span ng-bind="color"></span></div>
-<div><button ng-click="reset()">Reset</button></div>
-    </div>
+        options="options" 
+        combo-model="color" 
+        label="--Select a Color--"
+        other-label="A color not on the list..." 
+        select-class="{'red': true}"
+        input-class="{'green': true}"
+        >
+    </combo-box>
+    <div>Selected Color: <input type="text" ng-class="{'red': true}" ng-model="color" /></div>
+    <div><button ng-click="reset()">Reset</button></div>
+</div>
 </div>
 <script src="bower_components/angularjs/angular.min.js"></script>
 <script src="dist/angular-combo-box.min.js" ></script>
 <script>
 	angular.module('ngComboBoxExample', ['ngComboBox'])
-        .controller('myController', function ($scope) {
+    .controller('myController', function ($scope) {
         $scope.options = [
-            'Blue',
-            'Red',
-            'Pink',
-            'Purple',
-            'Green'];
+        'Blue',
+        'Red',
+        'Pink',
+        'Purple',
+        'Green'];
         $scope.color = null;
         $scope.reset = function () {
             $scope.color = null;
