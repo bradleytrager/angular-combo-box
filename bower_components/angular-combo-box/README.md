@@ -1,5 +1,5 @@
 # angular-combo-box
-Lightweight Angular JS directive which combines a select element with a text input.
+Lightweight Angular JS directive (~1K minified) which combines a select element with a text input.
 
 [![Build Status](https://travis-ci.org/bradleytrager/angular-combo-box.svg)](https://travis-ci.org/bradleytrager/angular-combo-box)
 
@@ -22,6 +22,8 @@ bower install angular-combo-box
     options="options" //An array of predefined options
     combo-model="comboModel" //The bound value of the combo box
     other-label="An option not on the list..." //Optional label for other input
+    select-class="{'red': true}" //Optional expression for ng-class on select
+    input-class="{'green': true}" //Optional expression for ng-class on input
 ></combo-box>
 ```
 ```JavaScript
@@ -32,6 +34,6 @@ angular.module('ngComboBoxExample', ['ngComboBox'])
         //List of predefined options    
     ];
     //The bound value of the combo box
-    $scope.comboModel = '';
+    $scope.comboModel = null;
 });
 ```

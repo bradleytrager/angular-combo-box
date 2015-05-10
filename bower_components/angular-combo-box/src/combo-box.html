@@ -1,0 +1,7 @@
+<select ng-model="selected" ng-class="selectClass" ng-change="setModelFromInput(selected)">
+    <option value="">{{label}}</option>
+    <option ng-repeat="option in options">{{option}}</option>
+    <option value="other" ng-bind="otherLabel"></option>
+</select>
+<br />
+<input type="text" ng-model="other" ng-class="inputClass" ng-change="setModelFromInput(selected)" ng-show="selected === 'other'" />
