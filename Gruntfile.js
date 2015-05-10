@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-jsbeautifier");
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.initConfig({
         jshint: {
@@ -54,6 +55,7 @@ module.exports = function(grunt) {
                 }
             }
         },
+
         karma: {
             unit: {
                 configFile: 'karma.conf.js',
@@ -61,7 +63,15 @@ module.exports = function(grunt) {
                 reporters: ['dots'],
                 browsers: ['PhantomJS']
             }
+        },
+
+        watch: {
+            all: {
+                files: ['src/*', 'test/*.js'],
+                tasks: ['default'],
+            }
         }
+
 
     });
 

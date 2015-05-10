@@ -192,6 +192,22 @@ describe('angular combo box', function() {
         });
     });
 
+    describe('setting css classes', function() {
+        it('applies css classes', function() {
+            $scope.comboModel = null;
+            var elem = compileDirective(angular.element('<combo-box ' +
+                'options="options" ' +
+                'combo-model="comboModel" ' +
+                'select-class="{\'green\': true}"' +
+                'input-class="{\'blue\': true}"' +
+                '></combo-box>'));
+            expect(elem.find('select').val()).toBe('');
+            expect($scope.comboModel).toBe(null);
+            expect(elem.find('select').hasClass('green')).toBe(true);
+            expect(elem.find('input').hasClass('blue')).toBe(true);
+        });
+    });
+
     function compileDirective(elem) {
         if (!elem) {
             elem = angular.element('<combo-box ' +
