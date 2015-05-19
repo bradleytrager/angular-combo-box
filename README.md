@@ -5,7 +5,7 @@ Lightweight Angular JS directive (~1K minified) which combines a select element 
 
 [![Bower version](https://badge.fury.io/bo/angular-combo-box.svg)](http://badge.fury.io/bo/angular-combo-box)
 
-[Demo](http://bradleytrager.github.io/angular-combo-box/)
+[Demo](http://bower.io/search/?q=angular-combo-box)
 
 ##Install
 
