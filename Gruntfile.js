@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-karma-coveralls');
 
     grunt.initConfig({
         jshint: {
@@ -60,8 +61,25 @@ module.exports = function(grunt) {
             unit: {
                 configFile: 'karma.conf.js',
                 singleRun: true,
-                reporters: ['dots'],
-                browsers: ['PhantomJS']
+                reporters: ['dots', 'coverage'],
+                browsers: ['PhantomJS'],
+                preprocessors: {
+                    'src/*.js': 'coverage'
+                },
+                coverageReporter: {
+                    type: "lcov",
+                    dir: "coverage/"
+                }
+            }
+        },
+
+        coveralls: {
+            options: {
+                debug: true,
+                coverageDir: 'coverage',
+                dryRun: true,
+                force: true,
+                recursive: true
             }
         },
 
@@ -75,5 +93,5 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('default', ['jshint', 'jsbeautifier', 'html2js', 'uglify:dist', 'karma:unit']);
+    grunt.registerTask('default', ['jshint', 'jsbeautifier', 'html2js', 'uglify:dist', 'karma:unit', 'coveralls']);
 };
