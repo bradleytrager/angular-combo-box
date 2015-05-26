@@ -2,8 +2,8 @@
 Lightweight Angular JS directive (~1K minified) which combines a select element with a text input.
 
 [![Build Status](https://travis-ci.org/bradleytrager/angular-combo-box.svg)](https://travis-ci.org/bradleytrager/angular-combo-box)
-
 [![Bower version](https://badge.fury.io/bo/angular-combo-box.svg)](http://badge.fury.io/bo/angular-combo-box)
+[![Coverage Status](https://coveralls.io/repos/bradleytrager/angular-combo-box/badge.svg)](https://coveralls.io/r/bradleytrager/angular-combo-box)
 
 [Demo](http://bower.io/search/?q=angular-combo-box)
 
