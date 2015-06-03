@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-karma-coveralls');
+    grunt.loadNpmTasks('grunt-coveralls');
 
     grunt.initConfig({
         jshint: {
@@ -74,13 +74,9 @@ module.exports = function(grunt) {
         },
 
         coveralls: {
-            options: {
-                debug: true,
-                coverageDir: 'coverage',
-                dryRun: true,
-                force: true,
-                recursive: true
-            }
+            src: {
+                src: 'coverage/**/lcov.info'
+            },
         },
 
         watch: {
