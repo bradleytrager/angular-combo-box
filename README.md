@@ -1,4 +1,6 @@
 # angular-combo-box
+
+[![Join the chat at https://gitter.im/bradleytrager/angular-combo-box](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bradleytrager/angular-combo-box?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Lightweight Angular JS directive (~1K minified) which combines a select element with a text input.
 
 [![Build Status](https://travis-ci.org/bradleytrager/angular-combo-box.svg)](https://travis-ci.org/bradleytrager/angular-combo-box)
