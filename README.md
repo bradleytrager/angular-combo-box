@@ -41,3 +41,13 @@ angular.module('ngComboBoxExample', ['ngComboBox'])
     $scope.comboModel = null;
 });
 ```
+
+##Building
+Restore packages 
+
+* `npm install`
+* `bower install`
+
+Build
+
+* `grunt`
