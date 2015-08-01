@@ -1,8 +1,9 @@
 angular.module('ngComboBox.controller', [])
-    .controller('comboBoxController', ['$scope', '$element', '$timeout', comboBoxController]);
+    .controller('comboBoxController', ['$scope', '$element', '$timeout', '$filter', comboBoxController]);
 
-function comboBoxController($scope, $element, $timeout) {
+function comboBoxController($scope, $element, $timeout, $filter) {
     $scope.setModelFromInput = setModelFromInput;
+    $scope.isOtherSelected = false;
     if ($scope.comboModel) {
         setInputFromModel($scope.comboModel);
     }
@@ -14,36 +15,58 @@ function comboBoxController($scope, $element, $timeout) {
         }
     });
 
-    function setInputFromModel(value) {
-        var isDefaultOption = value === null;
+    function setInputFromModel(option) {
+        var isDefaultOption = option === undefined || option === null || option.value === '';
+        var optionAsLimitedSet = null;
+
+        if (option) {
+            optionAsLimitedSet = getOption(option.value);
+        }
+
+        $scope.isOtherSelected = false;
         if (isDefaultOption) {
             $scope.selected = '';
-            $scope.other = '';
-        } else if (isAnOption(value)) {
-            $scope.selected = value;
+        } else if (optionAsLimitedSet) {
+            $scope.selected = optionAsLimitedSet;
         } else {
-            $scope.selected = 'other';
-            $scope.other = value;
+            $scope.selected = {
+                value: 'other',
+                text: $scope.otherTextLabel
+            };
+            $scope.isOtherSelected = true;
+            if (option) {
+                $scope.otherText = option.text;
+            }
         }
     }
 
     function setModelFromInput(value) {
         var isDefaultOption = value === '';
+        var valueAsOption = getOption(value);
+        $scope.isOtherSelected = false;
         if (isDefaultOption) {
             $scope.comboModel = null;
-            $scope.other = '';
-        } else if (isAnOption(value)) {
-            $scope.other = '';
-            $scope.comboModel = value;
+        } else if (valueAsOption) {
+            $scope.comboModel = valueAsOption;
         } else {
-            $scope.comboModel = $scope.other;
+            $scope.comboModel = {
+                value: 'other',
+                text: $scope.otherText
+            };
+            $scope.isOtherSelected = true;
             $timeout(function() {
                 $element.find('input')[0].focus();
             });
         }
     }
 
-    function isAnOption(value) {
-        return $scope.options.indexOf(value) !== -1;
+    function getOption(inputValue) {
+        var found = $filter('filter')($scope.options, {
+            value: inputValue
+        }, true);
+        if (found.length > 0) {
+            return found[0];
+        }
+        return null;
     }
 }

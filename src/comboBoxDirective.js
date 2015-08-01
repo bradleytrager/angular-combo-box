@@ -8,7 +8,9 @@ angular.module('ngComboBox.directive', [])
                 otherLabel: '@?',
                 label: '@?',
                 inputClass: '=',
-                selectClass: '='
+                selectClass: '=',
+                isOtherSelected: '=',
+                otherText: '='
             },
             templateUrl: 'combo-box.html',
             compile: function(el, attrs) {

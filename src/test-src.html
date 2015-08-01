@@ -30,20 +30,20 @@
 	<div>model: <span class="label label-success" ng-bind="color"></span></div>
     <div>model.value: <span class="label label-success" ng-bind="color.value"></span></div>
 	<div>model.text: <span class="label label-success" ng-bind="color.text"></span></div>
-	
+		
     <div><button ng-click="reset()">Reset</button></div>
 	
 </div>
 </div>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	
-<script src="bower_components/angularjs/angular.min.js"></script>
-<script src="dist/angular-combo-box.min.js" ></script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+<script src="comboBoxController.js" ></script>
+<script src="comboBoxDirective.js" ></script>
+<script src="comboBoxModule.js" ></script>
 
 <script>
-
+	
 	angular.module('ngComboBoxExample', ['ngComboBox'])
     .controller('myController', function ($scope) {
         $scope.options = [
