@@ -5,12 +5,9 @@ angular.module('ngComboBox.directive', [])
             scope: {
                 options: '=',
                 comboModel: '=',
-                otherLabel: '@?',
                 label: '@?',
                 inputClass: '=',
-                selectClass: '=',
-                isOtherSelected: '=',
-                otherText: '='
+                selectClass: '='
             },
             templateUrl: 'combo-box.html',
             compile: function(el, attrs) {

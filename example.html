@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>angular-combo-box</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
 </head>
 <body>
   <div ng-app="ngComboBoxExample">
@@ -20,7 +21,6 @@
 					options="options" 
 					combo-model="color" 
 					label="--Select a Color--"
-					other-label="A color not on the list..." 
 					select-class="{'form-control': true}"
 					input-class="{'form-control': true}">
 				</combo-box>
@@ -35,6 +35,8 @@
 	
 </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	
 <script src="bower_components/angularjs/angular.min.js"></script>
@@ -58,12 +60,15 @@
 			{
 				"text": "Blue",
 				"value": "B"
+			},
+			{
+				"text": "[Type your own value]",
+				"value": "other"
 			}
 		];
         $scope.reset = function () {
 			$scope.color = null;
 			$scope.otherText = null;
-			$scope.isOtherSelected = false;
         };
     });
 </script>

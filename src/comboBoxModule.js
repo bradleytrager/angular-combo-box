@@ -1,5 +1,5 @@
 angular.module('ngComboBox', [
     'ngComboBox.directive',
-    'ngComboBox.controller'
-    
+    'ngComboBox.controller',
+    'templates-main'
 ]);
