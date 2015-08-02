@@ -22,7 +22,14 @@ describe('angular combo box', function() {
         });
 
         it('sets the value for a given option and hides other input', function() {
-            $scope.comboModel = 'one';
+            $scope.options = [{
+                value: 1,
+                text: 'one'
+            }, {
+                value: 'other',
+                text: 'other'
+            }];
+            $scope.comboModel = $scope.options[0];
             var elem = compileDirective();
             expect(elem.find('select').val()).toBe('one');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);

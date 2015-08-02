@@ -32,7 +32,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function isOtherSelected(option) {
-        return !isDefaultOption(option) && option.value === 'other';
+        return !isDefaultOption(option) && option.value.toLowerCase() === 'other';
     }
 
     function setModelFromInput(option) {
