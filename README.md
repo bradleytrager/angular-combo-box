@@ -43,8 +43,9 @@ angular.module('ngComboBoxExample', ['ngComboBox'])
 ```
 
 ##Building
-Restore packages 
-
+* Install node.js
+* `npm install -g karma-cli`
+* `npm install -g grunt-cli`
 * `npm install`
 * `bower install`
 

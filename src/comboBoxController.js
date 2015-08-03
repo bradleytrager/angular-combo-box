@@ -23,6 +23,8 @@ function comboBoxController($scope, $element, $timeout, $filter) {
             $scope.selected = {
                 value: ''
             };
+        } else {
+            $scope.selected = resolveOption(option);
         }
     }
 
@@ -32,24 +34,38 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function isOtherSelected(option) {
-        return !isDefaultOption(option) && option.value.toLowerCase() === 'other';
+        return !isDefaultOption(option) && typeof option.value === 'string' && option.value.toLowerCase() === 'other';
     }
 
     function setModelFromInput(option) {
         $scope.isOtherSelected = isOtherSelected(option);
 
         if (isDefaultOption(option)) {
-            $scope.comboModel = null;
+            $scope.comboModel = setComboModel(null, null);
         } else if (!$scope.isOtherSelected) {
-            $scope.comboModel = option;
+            setComboModel(option.value, option.text);
         } else {
-            $scope.comboModel = {
-                value: 'other',
-                text: $scope.otherText
-            };
+            setComboModel('other', $scope.otherText);
+
             $timeout(function() {
                 $element.find('input')[0].focus();
             });
         }
+    }
+
+    function setComboModel(value, text) {
+        $scope.comboModel.value = value;
+        $scope.comboModel.text = text;
+    }
+
+    // when model binds to 'other' with free text, need to find the options that matches
+    function resolveOption(testOption) {
+        var found = $filter('filter')($scope.options, {
+            value: testOption.value
+        }, true);
+        if (found.length > 0) {
+            return found[0];
+        }
+        return null;
     }
 }

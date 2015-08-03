@@ -16,8 +16,7 @@
 		<form>
 		
 			<div class="form-group">
-  
-				<combo-box
+  				<combo-box
 					options="options" 
 					combo-model="color" 
 					label="--Select a Color--"
@@ -31,7 +30,8 @@
     <div>model.value: <span class="label label-success" ng-bind="color.value"></span></div>
 	<div>model.text: <span class="label label-success" ng-bind="color.text"></span></div>
 	
-    <div><button ng-click="reset()">Reset</button></div>
+    <div><button ng-click="setToGreen()">Set to Green</button></div>
+	<div><button ng-click="reset()">Reset</button></div>
 	
 </div>
 </div>
@@ -41,8 +41,6 @@
 	
 <script src="bower_components/angularjs/angular.min.js"></script>
 <script src="dist/angular-combo-box.js" ></script>
-
-
 
 <script>
 
@@ -69,6 +67,10 @@
         $scope.reset = function () {
 			$scope.color = null;
 			$scope.otherText = null;
+        };
+		
+		$scope.setToGreen = function () {
+			$scope.color = $scope.options[1];
         };
     });
 </script>

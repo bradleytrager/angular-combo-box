@@ -31,12 +31,15 @@ describe('angular combo box', function() {
             }];
             $scope.comboModel = $scope.options[0];
             var elem = compileDirective();
-            expect(elem.find('select').val()).toBe('one');
+            expect(elem.find('select').val()).toBe(1);
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
         });
 
         it('sets the value for another option and shows other input', function() {
-            $scope.comboModel = 'something else';
+            $scope.comboModel = {
+                value: 'other',
+                text: 'something else'
+            };
             var elem = compileDirective();
             expect(elem.find('select').val()).toBe('other');
             expect(elem.find('input').val()).toBe('something else');
@@ -53,7 +56,10 @@ describe('angular combo box', function() {
         });
 
         it('sets a given option', function() {
-            $scope.comboModel = 'something else';
+            $scope.comboModel = {
+                value: 'other',
+                text: 'something else'
+            };
             var elem = compileDirective();
             elem.find('select').val('one').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
@@ -221,7 +227,19 @@ describe('angular combo box', function() {
                 'options="options" ' +
                 'combo-model="comboModel"></combo-box>');
         }
-        $scope.options = ["one", "two", "three"];
+        $scope.options = [{
+            value: 1,
+            text: "one"
+        }, {
+            value: "two",
+            text: "two"
+        }, {
+            value: "three",
+            text: "three"
+        }, {
+            value: "other",
+            text: "some other number"
+        }];
 
         $compile(elem)($scope);
         $scope.$digest();
