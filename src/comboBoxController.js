@@ -54,6 +54,9 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function setComboModel(value, text) {
+        if ($scope.comboModel === null || $scope.comboModel === undefined) {
+            $scope.comboModel = {};
+        }
         $scope.comboModel.value = value;
         $scope.comboModel.text = text;
     }
