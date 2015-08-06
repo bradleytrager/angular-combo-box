@@ -96,11 +96,17 @@ module.exports = function(grunt) {
             all: {
                 files: ['src/*', 'test/*.js'],
                 tasks: ['default'],
+            },
+            notests: {
+                files: ['src/*', 'test/*.js'],
+                tasks: ['build'],
             }
         }
 
 
     });
 
-    grunt.registerTask('default', ['jshint', 'jsbeautifier', 'html2js', 'concat:dist', 'uglify:dist', 'karma:unit', 'coveralls']);
+    grunt.registerTask('build', ['jshint', 'jsbeautifier', 'html2js', 'concat:dist', 'uglify:dist']);
+    grunt.registerTask('test', ['karma:unit', 'coveralls']);
+    grunt.registerTask('default', ['build', 'test']);
 };
