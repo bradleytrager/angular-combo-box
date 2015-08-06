@@ -19,7 +19,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         setIsValid();
     });
 
-    $scope.$watch('isValid', function(newValue) {
+    $scope.$watch('required', function(newValue) {
         setIsValid();
     });
 
@@ -27,6 +27,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         var isDefaultSelected = isDefaultOption($scope.comboModel);
         var isOtherAndBlank = isOtherSelectedAndBlank($scope.comboModel);
         $scope.isValid = !$scope.required || (!isDefaultSelected && !isOtherAndBlank);
+        $scope.comboForm.$setValidity("comboRequired", $scope.isValid);
     }
 
     function setInputFromModel(option) {
@@ -38,19 +39,6 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         } else {
             $scope.selected = resolveOption(option);
         }
-    }
-
-    function isDefaultOption(option) {
-        var isDefault = option === undefined || option === null || option.value === '';
-        return isDefault;
-    }
-
-    function checkIsOtherSelected(option) {
-        return !isDefaultOption(option) && typeof option.value === 'string' && option.value.toLowerCase() === 'other';
-    }
-
-    function isOtherSelectedAndBlank(option) {
-        return checkIsOtherSelected(option) && (option.text === undefined || option.text === null || option.text === '');
     }
 
     function setModelFromInput(option) {
@@ -73,9 +61,24 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         if ($scope.comboModel === null || $scope.comboModel === undefined) {
             $scope.comboModel = {};
         }
-        $scope.comboModel.value = value;
-        $scope.comboModel.text = text;
+        $scope.comboModel = {
+            value: value,
+            text: text
+        };
         setIsValid();
+    }
+
+    function isDefaultOption(option) {
+        var isDefault = option === undefined || option === null || option.value === '';
+        return isDefault;
+    }
+
+    function checkIsOtherSelected(option) {
+        return !isDefaultOption(option) && typeof option.value === 'string' && option.value.toLowerCase() === 'other';
+    }
+
+    function isOtherSelectedAndBlank(option) {
+        return checkIsOtherSelected(option) && (option.text === undefined || option.text === null || option.text === '');
     }
 
     // when model binds to 'other' with free text, need to find the options that matches

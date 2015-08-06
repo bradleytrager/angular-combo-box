@@ -13,9 +13,9 @@
 		<h1>angular-combo-box demo</h1>
 		<div class="row">
 		<div class="col-md-2">
-		<form>
+		<form name="theForm">
 		
-			<div class="form-group">
+			<div class="form-group" ng-class="{'has-error' : !isValid}">
   				<combo-box
 					options="options" 
 					combo-model="color" 
@@ -31,6 +31,7 @@
 		</form>
 		
 	<div>Mandatory: <input type=checkbox ng-model="isMandatory" /></div>
+	<div>is Form Valid: {{theForm.$valid}}</div>
 	<div>isValid: {{isValid}}</div>
 	<div>isOtherSelected: {{hasOtherBeenSelected}}</div>
 	<div>model: <span class="label label-success" ng-bind="color"></span></div>
@@ -72,9 +73,7 @@
 			}
 		];
 		
-		//$scope.isValid = false; 
 		$scope.isMandatory = false;
-		//$scope.hasOtherBeenSelected = false;
 		
         $scope.reset = function () {
 			$scope.color = null;
