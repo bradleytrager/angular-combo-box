@@ -20,12 +20,15 @@
 					options="options" 
 					combo-model="color" 
 					label="--Select a Color--"
+					required = "isMandatory"
 					select-class="{'form-control': true}"
 					input-class="{'form-control': true}">
 				</combo-box>
 			</div>
 			
 		</form>
+		
+	<div>Mandatory: <input type=checkbox ng-model="isMandatory" /></div>
 	<div>model: <span class="label label-success" ng-bind="color"></span></div>
     <div>model.value: <span class="label label-success" ng-bind="color.value"></span></div>
 	<div>model.text: <span class="label label-success" ng-bind="color.text"></span></div>
@@ -64,6 +67,9 @@
 				"value": "other"
 			}
 		];
+		
+		$scope.isMandatory = false;
+		
         $scope.reset = function () {
 			$scope.color = null;
 			$scope.otherText = null;
