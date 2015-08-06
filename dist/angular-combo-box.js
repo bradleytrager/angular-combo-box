@@ -105,15 +105,16 @@ angular.module('ngComboBox.directive', [])
                 selectClass: '=',
                 required: '=',
                 isValid: '=',
-                isOtherSelected: '='
+                isOtherSelected: '=',
+                otherPlaceholder: '@?'
             },
             templateUrl: 'combo-box.html',
             compile: function(el, attrs) {
-                if (!attrs.otherLabel) {
-                    attrs.otherLabel = 'Other';
-                }
                 if (!attrs.label) {
                     attrs.label = '';
+                }
+                if (!attrs.otherPlaceholder) {
+                    attrs.otherPlaceholder = '';
                 }
             },
             controller: 'comboBoxController'
@@ -142,7 +143,7 @@ angular.module("combo-box.html", []).run(["$templateCache", function($templateCa
     "	<br />\n" +
     "	<input 	name=\"comboText\" \n" +
     "			type=\"text\" \n" +
-    "			placeholder=\"Other\" \n" +
+    "			placeholder=\"{{otherPlaceholder}}\" \n" +
     "			ng-model=\"otherText\" \n" +
     "			ng-class=\"inputClass\" \n" +
     "			ng-change=\"setModelFromInput(selected)\" \n" +
