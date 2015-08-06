@@ -30,7 +30,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function setInputFromModel(option) {
-        $scope.isOtherSelected = isOtherSelected(option);
+        $scope.isOtherSelected = checkIsOtherSelected(option);
         if (isDefaultOption(option)) {
             $scope.selected = {
                 value: ''
@@ -45,16 +45,16 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         return isDefault;
     }
 
-    function isOtherSelected(option) {
+    function checkIsOtherSelected(option) {
         return !isDefaultOption(option) && typeof option.value === 'string' && option.value.toLowerCase() === 'other';
     }
 
     function isOtherSelectedAndBlank(option) {
-        return isOtherSelected(option) && (option.text === undefined || option.text === null || option.text === '');
+        return checkIsOtherSelected(option) && (option.text === undefined || option.text === null || option.text === '');
     }
 
     function setModelFromInput(option) {
-        $scope.isOtherSelected = isOtherSelected(option);
+        $scope.isOtherSelected = checkIsOtherSelected(option);
 
         if (isDefaultOption(option)) {
             $scope.comboModel = setComboModel(null, null);

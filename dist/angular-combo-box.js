@@ -5,6 +5,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     $scope.setModelFromInput = setModelFromInput;
     $scope.isOtherSelected = false;
     $scope.otherText = null;
+    $scope.isValid = false;
 
     if ($scope.comboModel) {
         setInputFromModel($scope.comboModel);
@@ -15,10 +16,21 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         if (isNotEnteringOtherValue) {
             setInputFromModel(newValue);
         }
+        setIsValid();
     });
 
+    $scope.$watch('isValid', function(newValue) {
+        setIsValid();
+    });
+
+    function setIsValid() {
+        var isDefaultSelected = isDefaultOption($scope.comboModel);
+        var isOtherAndBlank = isOtherSelectedAndBlank($scope.comboModel);
+        $scope.isValid = !$scope.required || (!isDefaultSelected && !isOtherAndBlank);
+    }
+
     function setInputFromModel(option) {
-        $scope.isOtherSelected = isOtherSelected(option);
+        $scope.isOtherSelected = checkIsOtherSelected(option);
         if (isDefaultOption(option)) {
             $scope.selected = {
                 value: ''
@@ -33,12 +45,16 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         return isDefault;
     }
 
-    function isOtherSelected(option) {
+    function checkIsOtherSelected(option) {
         return !isDefaultOption(option) && typeof option.value === 'string' && option.value.toLowerCase() === 'other';
     }
 
+    function isOtherSelectedAndBlank(option) {
+        return checkIsOtherSelected(option) && (option.text === undefined || option.text === null || option.text === '');
+    }
+
     function setModelFromInput(option) {
-        $scope.isOtherSelected = isOtherSelected(option);
+        $scope.isOtherSelected = checkIsOtherSelected(option);
 
         if (isDefaultOption(option)) {
             $scope.comboModel = setComboModel(null, null);
@@ -54,8 +70,12 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function setComboModel(value, text) {
+        if ($scope.comboModel === null || $scope.comboModel === undefined) {
+            $scope.comboModel = {};
+        }
         $scope.comboModel.value = value;
         $scope.comboModel.text = text;
+        setIsValid();
     }
 
     // when model binds to 'other' with free text, need to find the options that matches
@@ -79,7 +99,10 @@ angular.module('ngComboBox.directive', [])
                 comboModel: '=',
                 label: '@?',
                 inputClass: '=',
-                selectClass: '='
+                selectClass: '=',
+                required: '=',
+                isValid: '=',
+                isOtherSelected: '='
             },
             templateUrl: 'combo-box.html',
             compile: function(el, attrs) {
@@ -104,10 +127,12 @@ angular.module('templates-main', ['combo-box.html']);
 
 angular.module("combo-box.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("combo-box.html",
-    "<select ng-model=\"selected\" ng-class=\"selectClass\" ng-change=\"setModelFromInput(selected)\" ng-options=\"option.text for option in options\" >\n" +
-    "    <option value=\"\">{{label}}</option>\n" +
-    "</select>\n" +
-    "<br />\n" +
-    "<input type=\"text\" placeholder=\"Other\" ng-model=\"otherText\" ng-class=\"inputClass\" ng-change=\"setModelFromInput(selected)\" ng-show=\"isOtherSelected\" />\n" +
+    "<ng-form name=\"comboForm\">\n" +
+    "	<select name=\"comboSelect\" ng-model=\"selected\" ng-class=\"selectClass\" ng-change=\"setModelFromInput(selected)\" ng-options=\"option.text for option in options\" ng-required=\"required\">\n" +
+    "		<option value=\"\">{{label}}</option>\n" +
+    "	</select>\n" +
+    "	<br />\n" +
+    "	<input name=\"comboText\" type=\"text\" placeholder=\"Other\" ng-model=\"otherText\" ng-class=\"inputClass\" ng-change=\"setModelFromInput(selected)\" ng-show=\"isOtherSelected\" ng-required=\"required && isOtherSelected\" />\n" +
+    "</ng-form>\n" +
     "");
 }]);

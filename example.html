@@ -22,6 +22,7 @@
 					label="--Select a Color--"
 					required = "isMandatory"
 					is-valid="isValid"
+					is-other-selected="hasOtherBeenSelected"
 					select-class="{'form-control': true}"
 					input-class="{'form-control': true}">
 				</combo-box>
@@ -31,6 +32,7 @@
 		
 	<div>Mandatory: <input type=checkbox ng-model="isMandatory" /></div>
 	<div>isValid: {{isValid}}</div>
+	<div>isOtherSelected: {{hasOtherBeenSelected}}</div>
 	<div>model: <span class="label label-success" ng-bind="color"></span></div>
     <div>model.value: <span class="label label-success" ng-bind="color.value"></span></div>
 	<div>model.text: <span class="label label-success" ng-bind="color.text"></span></div>
@@ -70,8 +72,9 @@
 			}
 		];
 		
-		$scope.isValid = false;
+		//$scope.isValid = false; 
 		$scope.isMandatory = false;
+		//$scope.hasOtherBeenSelected = false;
 		
         $scope.reset = function () {
 			$scope.color = null;

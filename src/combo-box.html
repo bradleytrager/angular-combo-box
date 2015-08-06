@@ -3,5 +3,5 @@
 		<option value="">{{label}}</option>
 	</select>
 	<br />
-	<input name="comboText" type="text" placeholder="Other" ng-model="otherText" ng-class="inputClass" ng-change="setModelFromInput(selected)" ng-show="isOtherSelected" ng-required="required" />
+	<input name="comboText" type="text" placeholder="Other" ng-model="otherText" ng-class="inputClass" ng-change="setModelFromInput(selected)" ng-show="isOtherSelected" ng-required="required && isOtherSelected" />
 </ng-form>
