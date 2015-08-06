@@ -5,6 +5,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     $scope.setModelFromInput = setModelFromInput;
     $scope.isOtherSelected = false;
     $scope.otherText = null;
+    $scope.isValid = false;
 
     if ($scope.comboModel) {
         setInputFromModel($scope.comboModel);
@@ -15,7 +16,18 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         if (isNotEnteringOtherValue) {
             setInputFromModel(newValue);
         }
+        setIsValid();
     });
+
+    $scope.$watch('isValid', function(newValue) {
+        setIsValid();
+    });
+
+    function setIsValid() {
+        var isDefaultSelected = isDefaultOption($scope.comboModel);
+        var isOtherAndBlank = isOtherSelectedAndBlank($scope.comboModel);
+        $scope.isValid = !$scope.required || (!isDefaultSelected && !isOtherAndBlank);
+    }
 
     function setInputFromModel(option) {
         $scope.isOtherSelected = isOtherSelected(option);
@@ -35,6 +47,10 @@ function comboBoxController($scope, $element, $timeout, $filter) {
 
     function isOtherSelected(option) {
         return !isDefaultOption(option) && typeof option.value === 'string' && option.value.toLowerCase() === 'other';
+    }
+
+    function isOtherSelectedAndBlank(option) {
+        return isOtherSelected(option) && (option.text === undefined || option.text === null || option.text === '');
     }
 
     function setModelFromInput(option) {
@@ -59,6 +75,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         }
         $scope.comboModel.value = value;
         $scope.comboModel.text = text;
+        setIsValid();
     }
 
     // when model binds to 'other' with free text, need to find the options that matches

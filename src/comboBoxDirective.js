@@ -8,7 +8,8 @@ angular.module('ngComboBox.directive', [])
                 label: '@?',
                 inputClass: '=',
                 selectClass: '=',
-                required: '='
+                required: '=',
+                isValid: '='
             },
             templateUrl: 'combo-box.html',
             compile: function(el, attrs) {

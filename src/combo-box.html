@@ -1,5 +1,7 @@
-<select ng-model="selected" ng-class="selectClass" ng-change="setModelFromInput(selected)" ng-options="option.text for option in options" ng-required="required">
-    <option value="">{{label}}</option>
-</select>
-<br />
-<input type="text" placeholder="Other" ng-model="otherText" ng-class="inputClass" ng-change="setModelFromInput(selected)" ng-show="isOtherSelected" ng-required="required" />
+<ng-form name="comboForm">
+	<select name="comboSelect" ng-model="selected" ng-class="selectClass" ng-change="setModelFromInput(selected)" ng-options="option.text for option in options" ng-required="required">
+		<option value="">{{label}}</option>
+	</select>
+	<br />
+	<input name="comboText" type="text" placeholder="Other" ng-model="otherText" ng-class="inputClass" ng-change="setModelFromInput(selected)" ng-show="isOtherSelected" ng-required="required" />
+</ng-form>

@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
-<body>
+<body> 
   <div ng-app="ngComboBoxExample">
     <div ng-controller="myController">
 		<h1>angular-combo-box demo</h1>
@@ -21,6 +21,7 @@
 					combo-model="color" 
 					label="--Select a Color--"
 					required = "isMandatory"
+					is-valid="isValid"
 					select-class="{'form-control': true}"
 					input-class="{'form-control': true}">
 				</combo-box>
@@ -29,6 +30,7 @@
 		</form>
 		
 	<div>Mandatory: <input type=checkbox ng-model="isMandatory" /></div>
+	<div>isValid: {{isValid}}</div>
 	<div>model: <span class="label label-success" ng-bind="color"></span></div>
     <div>model.value: <span class="label label-success" ng-bind="color.value"></span></div>
 	<div>model.text: <span class="label label-success" ng-bind="color.text"></span></div>
@@ -68,6 +70,7 @@
 			}
 		];
 		
+		$scope.isValid = false;
 		$scope.isMandatory = false;
 		
         $scope.reset = function () {
