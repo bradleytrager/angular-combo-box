@@ -37,6 +37,9 @@ function comboBoxController($scope, $element, $timeout, $filter) {
                 value: ''
             };
         } else {
+			if ($scope.isOtherSelected){
+				$scope.otherText = option.text;
+			}
             $scope.selected = resolveOption(option);
         }
     }

@@ -31,7 +31,7 @@ describe('angular combo box', function() {
             }];
             $scope.comboModel = $scope.options[0];
             var elem = compileDirective();
-            expect(elem.find('select').val()).toBe(1);
+            expect(elem.find('select').val()).toBe('1');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
         });
 
