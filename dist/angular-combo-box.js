@@ -11,10 +11,10 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         setInputFromModel($scope.comboModel);
     }
 
-    $scope.$watch('comboModel', function(newValue) {
+    $scope.$watch('comboModel', function(newValue, oldValue) {
         var isNotEnteringOtherValue = document.activeElement != $element.find('input')[0];
         if (isNotEnteringOtherValue) {
-            setInputFromModel(newValue);
+            setInputFromModel(newValue || oldValue);
         }
         setIsValid();
     });
@@ -37,7 +37,19 @@ function comboBoxController($scope, $element, $timeout, $filter) {
                 value: ''
             };
         } else {
-            $scope.selected = resolveOption(option);
+            if ($scope.isOtherSelected) {
+                $scope.otherText = option.text;
+            }
+            var resolvedOption = resolveOption(option);
+            if (resolvedOption === null) {
+                // illegal select list option
+                $scope.selected = resolveOption({
+                    value: 'other'
+                });
+                $scope.otherText = option.text;
+            } else {
+                $scope.selected = resolvedOption;
+            }
         }
     }
 
@@ -103,9 +115,9 @@ angular.module('ngComboBox.directive', [])
                 label: '@?',
                 inputClass: '=',
                 selectClass: '=',
-                required: '=',
-                isValid: '=',
-                isOtherSelected: '=',
+                required: '=?',
+                isValid: '=?',
+                isOtherSelected: '=?',
                 otherPlaceholder: '@?'
             },
             templateUrl: 'combo-box.html',

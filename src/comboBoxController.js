@@ -12,9 +12,15 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     $scope.$watch('comboModel', function(newValue, oldValue) {
+		
+		if (newValue===undefined){
+			// seem to be getting bounce in the events
+			return;
+		}
+	
         var isNotEnteringOtherValue = document.activeElement != $element.find('input')[0];
         if (isNotEnteringOtherValue) {
-            setInputFromModel(newValue || oldValue);
+            setInputFromModel(newValue);
         }
         setIsValid();
     });
@@ -37,18 +43,19 @@ function comboBoxController($scope, $element, $timeout, $filter) {
                 value: ''
             };
         } else {
-			if ($scope.isOtherSelected){
-				$scope.otherText = option.text;
-			}
+            if ($scope.isOtherSelected) {
+                $scope.otherText = option.text;
+            }
             var resolvedOption = resolveOption(option);
-			if (resolvedOption === null){
-				// illegal select list option
-				$scope.selected = resolveOption({value:'other'});
-				$scope.otherText = option.text;
-			}
-			else{
-				$scope.selected = resolvedOption;
-			}
+            if (resolvedOption === null) {
+                // illegal select list option
+                $scope.selected = resolveOption({
+                    value: 'other'
+                });
+                $scope.otherText = option.text;
+            } else {
+                $scope.selected = resolvedOption;
+            }
         }
     }
 
@@ -56,7 +63,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         $scope.isOtherSelected = checkIsOtherSelected(option);
 
         if (isDefaultOption(option)) {
-            $scope.comboModel = setComboModel(null, null);
+            setComboModel(null, null);
         } else if (!$scope.isOtherSelected) {
             setComboModel(option.value, option.text);
         } else {
@@ -80,7 +87,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function isDefaultOption(option) {
-        var isDefault = option === undefined || option === null || option.value === '';
+        var isDefault = option === undefined || option === null || option.value === '' || option.value === null;
         return isDefault;
     }
 

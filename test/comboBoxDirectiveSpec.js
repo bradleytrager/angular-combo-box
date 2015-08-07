@@ -52,7 +52,10 @@ describe('angular combo box', function() {
             elem.find('select').val('other').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(false);
             elem.find('input').val('something else').triggerHandler('change');
-            expect($scope.comboModel).toEqual ({ value: 'other', text: 'something else' });
+            expect($scope.comboModel).toEqual({
+                value: 'other',
+                text: 'something else'
+            });
         });
 
         it('sets a given option', function() {
@@ -61,9 +64,12 @@ describe('angular combo box', function() {
                 text: 'something else'
             };
             var elem = compileDirective();
-            elem.find('select').val('one').triggerHandler('change');
+            elem.find('select').val('1').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
-            expect($scope.comboModel).toBe('one');
+            expect($scope.comboModel).toEqual({
+				value: 1,
+				text: "one"
+			});
         });
 
         it('focuses on the other input when the other option is chosen', function() {
@@ -154,7 +160,10 @@ describe('angular combo box', function() {
                 'label="my custom label"' +
                 'options="options" ' +
                 'combo-model="comboModel"></combo-box>'));
-            $scope.comboModel = 'something else';
+            $scope.comboModel = {
+				value: "other",
+				text: "something else"
+			};
             $scope.$digest();
             expect(elem.find('select').val()).toBe('other');
             expect(elem.find('input').val()).toBe('something else');
@@ -183,14 +192,20 @@ describe('angular combo box', function() {
     });
 
     describe('edge cases', function() {
-        it('does not swith to other when defualt is selected', function() {
+        it('does not switch to other when default is selected', function() {
             $scope.comboModel = null;
             var elem = compileDirective();
-            elem.find('select').val('one').triggerHandler('change');
+            elem.find('select').val('1').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
-            expect($scope.comboModel).toBe('one');
-            elem.find('select').val('').triggerHandler('change');
-            var select = elem.find('select')[0];
+            expect($scope.comboModel).toEqual({
+				value: 1,
+				text: "one"
+			});
+			
+			var select = elem.find('select')[0];
+			var jqSelect = elem.find('select');
+			jqSelect.val('')
+            jqSelect.triggerHandler('change');
             expect(select.options[select.selectedIndex].innerHTML).toBe('');
         });
     });
