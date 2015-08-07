@@ -11,10 +11,10 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         setInputFromModel($scope.comboModel);
     }
 
-    $scope.$watch('comboModel', function(newValue) {
+    $scope.$watch('comboModel', function(newValue, oldValue) {
         var isNotEnteringOtherValue = document.activeElement != $element.find('input')[0];
         if (isNotEnteringOtherValue) {
-            setInputFromModel(newValue);
+            setInputFromModel(newValue || oldValue);
         }
         setIsValid();
     });
@@ -40,7 +40,15 @@ function comboBoxController($scope, $element, $timeout, $filter) {
 			if ($scope.isOtherSelected){
 				$scope.otherText = option.text;
 			}
-            $scope.selected = resolveOption(option);
+            var resolvedOption = resolveOption(option);
+			if (resolvedOption === null){
+				// illegal select list option
+				$scope.selected = resolveOption({value:'other'});
+				$scope.otherText = option.text;
+			}
+			else{
+				$scope.selected = resolvedOption;
+			}
         }
     }
 

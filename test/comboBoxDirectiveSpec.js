@@ -52,7 +52,7 @@ describe('angular combo box', function() {
             elem.find('select').val('other').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(false);
             elem.find('input').val('something else').triggerHandler('change');
-            expect($scope.comboModel).toBe('something else');
+            expect($scope.comboModel).toEqual ({ value: 'other', text: 'something else' });
         });
 
         it('sets a given option', function() {
@@ -89,27 +89,8 @@ describe('angular combo box', function() {
             expect(document.activeElement).toBe(input[0]);
             elem.find('input').val('one').triggerHandler('change');
             var select = elem.find('select')[0];
-            expect(select.options[select.selectedIndex].innerHTML).toBe('Other');
+            expect(select.options[select.selectedIndex].innerHTML).toBe('some other number');
             elem.remove();
-        });
-    });
-
-    describe('passing a custom value for "other"', function() {
-        it('uses "Other" by default', function() {
-            var elem = compileDirective();
-            var options = elem.find('option');
-            var otherLabel = options[options.length - 1].innerHTML;
-            expect(otherLabel).toBe('Other');
-        });
-
-        it('sets a custom value if provided', function() {
-            var elem = compileDirective(angular.element('<combo-box ' +
-                'options="options" ' +
-                'combo-model="comboModel"' +
-                'other-label="Something Else"></combo-box>'));
-            var options = elem.find('option');
-            var otherLabel = options[options.length - 1].innerHTML;
-            expect(otherLabel).toBe('Something Else');
         });
     });
 
@@ -129,18 +110,24 @@ describe('angular combo box', function() {
         it('updates the select box if the value is an option', function() {
             $scope.comboModel = null;
             var elem = compileDirective();
-            $scope.comboModel = 'one';
+            $scope.comboModel = {
+                value: 1,
+                text: 'one'
+            };
             $scope.$digest();
-            expect(elem.find('select').val()).toBe('one');
+            expect(elem.find('select').val()).toBe('1');
         });
 
         it('updates the select box if the value is not an option', function() {
             $scope.comboModel = null;
             var elem = compileDirective();
-            $scope.comboModel = 'something else';
+            $scope.comboModel = $scope.comboModel = {
+                value: 'foo',
+                text: 'bar'
+            };
             $scope.$digest();
             expect(elem.find('select').val()).toBe('other');
-            expect(elem.find('input').val()).toBe('something else');
+            expect(elem.find('input').val()).toBe('bar');
         });
 
         it('resets the combo box', function() {
@@ -148,9 +135,12 @@ describe('angular combo box', function() {
                 'label="my custom label"' +
                 'options="options" ' +
                 'combo-model="comboModel"></combo-box>'));
-            $scope.comboModel = 'one';
+            $scope.comboModel = {
+                value: 1,
+                text: 'one'
+            };
             $scope.$digest();
-            expect(elem.find('select').val()).toBe('one');
+            expect(elem.find('select').val()).toBe('1');
             $scope.comboModel = null;
             $scope.$digest();
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
