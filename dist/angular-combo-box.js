@@ -2,6 +2,40 @@ angular.module('ngComboBox.controller', [])
     .controller('comboBoxController', ['$scope', '$element', '$timeout', '$filter', comboBoxController]);
 
 function comboBoxController($scope, $element, $timeout, $filter) {
+    for (var i = 0; i < $scope.options.length; i++) {
+        $scope.options[i] = optionAsObject($scope.options[i]);
+    }
+
+    if (!containsOtherOptionObject()) {
+        $scope.options.push({
+            value: 'other',
+            text: 'Other'
+        });
+    }
+
+    $scope.comboModel = optionAsObject($scope.comboModel);
+
+    function optionAsObject(option) {
+        if (typeof option === "string") {
+            return {
+                value: option,
+                text: option
+            };
+        }
+
+        return option;
+    }
+
+    function containsOtherOptionObject() {
+        for (var i = 0; i < $scope.options.length; i++) {
+            if ($scope.options[i].value === 'other') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     $scope.setModelFromInput = setModelFromInput;
     $scope.isOtherSelected = false;
     $scope.otherText = null;
@@ -12,9 +46,15 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     $scope.$watch('comboModel', function(newValue, oldValue) {
+
+        if (newValue === undefined) {
+            // seem to be getting bounce in the events
+            return;
+        }
+
         var isNotEnteringOtherValue = document.activeElement != $element.find('input')[0];
         if (isNotEnteringOtherValue) {
-            setInputFromModel(newValue || oldValue);
+            setInputFromModel(newValue);
         }
         setIsValid();
     });
@@ -31,6 +71,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function setInputFromModel(option) {
+        option = optionAsObject(option);
         $scope.isOtherSelected = checkIsOtherSelected(option);
         if (isDefaultOption(option)) {
             $scope.selected = {
@@ -57,7 +98,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         $scope.isOtherSelected = checkIsOtherSelected(option);
 
         if (isDefaultOption(option)) {
-            $scope.comboModel = setComboModel(null, null);
+            setComboModel(null, null);
         } else if (!$scope.isOtherSelected) {
             setComboModel(option.value, option.text);
         } else {
@@ -81,7 +122,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function isDefaultOption(option) {
-        var isDefault = option === undefined || option === null || option.value === '';
+        var isDefault = option === undefined || option === null || option.value === '' || option.value === null;
         return isDefault;
     }
 
@@ -112,6 +153,7 @@ angular.module('ngComboBox.directive', [])
             scope: {
                 options: '=',
                 comboModel: '=',
+                otherLabel: '@?',
                 label: '@?',
                 inputClass: '=',
                 selectClass: '=',
@@ -122,6 +164,9 @@ angular.module('ngComboBox.directive', [])
             },
             templateUrl: 'combo-box.html',
             compile: function(el, attrs) {
+                if (!attrs.otherLabel) {
+                    attrs.otherLabel = 'Other';
+                }
                 if (!attrs.label) {
                     attrs.label = '';
                 }
@@ -162,5 +207,6 @@ angular.module("combo-box.html", []).run(["$templateCache", function($templateCa
     "			ng-show=\"isOtherSelected\" \n" +
     "			ng-required=\"required && isOtherSelected\" />\n" +
     "</ng-form>\n" +
+    "\n" +
     "");
 }]);

@@ -2,6 +2,40 @@ angular.module('ngComboBox.controller', [])
     .controller('comboBoxController', ['$scope', '$element', '$timeout', '$filter', comboBoxController]);
 
 function comboBoxController($scope, $element, $timeout, $filter) {
+    for (var i = 0; i < $scope.options.length; i++) {
+        $scope.options[i] = optionAsObject($scope.options[i]);
+    }
+
+    if (!containsOtherOptionObject()) {
+        $scope.options.push({
+            value: 'other',
+            text: 'Other'
+        });
+    }
+
+    $scope.comboModel = optionAsObject($scope.comboModel);
+
+    function optionAsObject(option) {
+        if (typeof option === "string") {
+            return {
+                value: option,
+                text: option
+            };
+        }
+
+        return option;
+    }
+
+    function containsOtherOptionObject() {
+        for (var i = 0; i < $scope.options.length; i++) {
+            if ($scope.options[i].value === 'other') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     $scope.setModelFromInput = setModelFromInput;
     $scope.isOtherSelected = false;
     $scope.otherText = null;
@@ -12,12 +46,12 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     $scope.$watch('comboModel', function(newValue, oldValue) {
-		
-		if (newValue===undefined){
-			// seem to be getting bounce in the events
-			return;
-		}
-	
+
+        if (newValue === undefined) {
+            // seem to be getting bounce in the events
+            return;
+        }
+
         var isNotEnteringOtherValue = document.activeElement != $element.find('input')[0];
         if (isNotEnteringOtherValue) {
             setInputFromModel(newValue);
@@ -37,6 +71,7 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     function setInputFromModel(option) {
+        option = optionAsObject(option);
         $scope.isOtherSelected = checkIsOtherSelected(option);
         if (isDefaultOption(option)) {
             $scope.selected = {

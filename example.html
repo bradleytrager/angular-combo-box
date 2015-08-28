@@ -55,23 +55,31 @@
 
 	angular.module('ngComboBoxExample', ['ngComboBox'])
     .controller('myController', function ($scope) {
-        $scope.options = [
-			{
-				"text": "Red",
-				"value": "R"
-			},
-			{
-				"text": "Green",
-				"value": "G"
-			},
-			{
-				"text": "Blue",
-				"value": "B"
-			},
-			{
-				"text": "[Type your own value]",
-				"value": "other"
-			}
+  //       $scope.options = [
+		// 	{
+		// 		"text": "Red",
+		// 		"value": "R"
+		// 	},
+		// 	{
+		// 		"text": "Green",
+		// 		"value": "G"
+		// 	},
+		// 	{
+		// 		"text": "Blue",
+		// 		"value": "B"
+		// 	},
+		// 	{
+		// 		"text": "[Type your own value]",
+		// 		"value": "other"
+		// 	}
+		// ];
+
+		$scope.color = 'purple';
+
+		$scope.options = [
+			"Red",
+			"Green",
+			"Blue"
 		];
 		
 		$scope.isMandatory = false;
