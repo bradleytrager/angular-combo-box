@@ -40,6 +40,7 @@
 	<div>model.text: <span class="label label-success" ng-bind="color.text"></span></div>
 	
     <div><button ng-click="setToGreen()">Set to Green</button></div>
+	<div><button ng-click="setToOther()">Set to Other</button></div>
 	<div><button ng-click="reset()">Reset</button></div>
 	
 </div>
@@ -83,6 +84,13 @@
 		
 		$scope.setToGreen = function () {
 			$scope.color = $scope.options[1];
+        };
+		
+		$scope.setToOther = function () {
+			$scope.color = {
+				"value": "other",
+				"text": "This is some other text"
+			}
         };
     });
 </script>
