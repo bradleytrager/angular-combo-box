@@ -12,12 +12,12 @@ function comboBoxController($scope, $element, $timeout, $filter) {
     }
 
     $scope.$watch('comboModel', function(newValue, oldValue) {
-		
-		if (newValue===undefined){
-			// seem to be getting bounce in the events
-			return;
-		}
-	
+
+        if (newValue === undefined) {
+            // seem to be getting bounce in the events
+            return;
+        }
+
         var isNotEnteringOtherValue = document.activeElement != $element.find('input')[0];
         if (isNotEnteringOtherValue) {
             setInputFromModel(newValue);

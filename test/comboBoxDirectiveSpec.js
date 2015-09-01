@@ -67,9 +67,9 @@ describe('angular combo box', function() {
             elem.find('select').val('1').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
             expect($scope.comboModel).toEqual({
-				value: 1,
-				text: "one"
-			});
+                value: 1,
+                text: "one"
+            });
         });
 
         it('focuses on the other input when the other option is chosen', function() {
@@ -161,9 +161,9 @@ describe('angular combo box', function() {
                 'options="options" ' +
                 'combo-model="comboModel"></combo-box>'));
             $scope.comboModel = {
-				value: "other",
-				text: "something else"
-			};
+                value: "other",
+                text: "something else"
+            };
             $scope.$digest();
             expect(elem.find('select').val()).toBe('other');
             expect(elem.find('input').val()).toBe('something else');
@@ -198,13 +198,13 @@ describe('angular combo box', function() {
             elem.find('select').val('1').triggerHandler('change');
             expect(elem.find('input').hasClass('ng-hide')).toBe(true);
             expect($scope.comboModel).toEqual({
-				value: 1,
-				text: "one"
-			});
-			
-			var select = elem.find('select')[0];
-			var jqSelect = elem.find('select');
-			jqSelect.val('')
+                value: 1,
+                text: "one"
+            });
+
+            var select = elem.find('select')[0];
+            var jqSelect = elem.find('select');
+            jqSelect.val('');
             jqSelect.triggerHandler('change');
             expect(select.options[select.selectedIndex].innerHTML).toBe('');
         });
