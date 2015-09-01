@@ -5,18 +5,21 @@ angular.module('ngComboBox.directive', [])
             scope: {
                 options: '=',
                 comboModel: '=',
-                otherLabel: '@?',
                 label: '@?',
                 inputClass: '=',
-                selectClass: '='
+                selectClass: '=',
+                required: '=?',
+                isValid: '=?',
+                isOtherSelected: '=?',
+                otherPlaceholder: '@?'
             },
             templateUrl: 'combo-box.html',
             compile: function(el, attrs) {
-                if (!attrs.otherLabel) {
-                    attrs.otherLabel = 'Other';
-                }
                 if (!attrs.label) {
                     attrs.label = '';
+                }
+                if (!attrs.otherPlaceholder) {
+                    attrs.otherPlaceholder = '';
                 }
             },
             controller: 'comboBoxController'

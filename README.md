@@ -41,3 +41,14 @@ angular.module('ngComboBoxExample', ['ngComboBox'])
     $scope.comboModel = null;
 });
 ```
+
+##Building
+* Install node.js
+* `npm install -g karma-cli`
+* `npm install -g grunt-cli`
+* `npm install`
+* `bower install`
+
+Build
+
+* `grunt`

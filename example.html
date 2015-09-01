@@ -1,48 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>angular-combo-box</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
-<body>
-  <style type="text/css" media="screen">
-      .red {
-          color: red;
-          border: 1px solid red;
-      }
-      .green {
-          color: green;
-          border: 1px solid green;
-      }
-  </style>
+<body> 
   <div ng-app="ngComboBoxExample">
     <div ng-controller="myController">
-        <combo-box
-        options="options" 
-        combo-model="color" 
-        label="--Select a Color--"
-        other-label="A color not on the list..." 
-        select-class="{'red': true}"
-        input-class="{'green': true}"
-        >
-    </combo-box>
-    <div>Selected Color: <input type="text" ng-class="{'red': true}" ng-model="color" /></div>
-    <div><button ng-click="reset()">Reset</button></div>
+		<h1>angular-combo-box demo</h1>
+		<div class="row">
+		<div class="col-md-2">
+		<form name="theForm">
+		
+			<div class="form-group" ng-class="{'has-error' : !isValid}">
+  				<combo-box
+					options="options" 
+					combo-model="color" 
+					label="--Select a Color--"
+					required = "isMandatory"
+					is-valid="isValid"
+					other-placeholder="ok what color?"
+					is-other-selected="hasOtherBeenSelected"
+					select-class="{'form-control': true}"
+					input-class="{'form-control': true}">
+				</combo-box>
+			</div>
+			
+		</form>
+		
+	<div>Mandatory: <input type=checkbox ng-model="isMandatory" /></div>
+	<div>is Form Valid: {{theForm.$valid}}</div>
+	<div>isValid: {{isValid}}</div>
+	<div>isOtherSelected: {{hasOtherBeenSelected}}</div>
+	<div>model: <span class="label label-success" ng-bind="color"></span></div>
+    <div>model.value: <span class="label label-success" ng-bind="color.value"></span></div>
+	<div>model.text: <span class="label label-success" ng-bind="color.text"></span></div>
+	
+    <div><button ng-click="setToGreen()">Set to Green</button></div>
+	<div><button ng-click="setToOther()">Set to Other</button></div>
+	<div><button ng-click="reset()">Reset</button></div>
+	
 </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
 <script src="bower_components/angularjs/angular.min.js"></script>
-<script src="dist/angular-combo-box.min.js" ></script>
+<script src="dist/angular-combo-box.js" ></script>
+
 <script>
+
 	angular.module('ngComboBoxExample', ['ngComboBox'])
     .controller('myController', function ($scope) {
         $scope.options = [
-        'Blue',
-        'Red',
-        'Pink',
-        'Purple',
-        'Green'];
-        $scope.color = null;
+			{
+				"text": "Red",
+				"value": "R"
+			},
+			{
+				"text": "Green",
+				"value": "G"
+			},
+			{
+				"text": "Blue",
+				"value": "B"
+			},
+			{
+				"text": "[Type your own value]",
+				"value": "other"
+			}
+		];
+		
+		$scope.isMandatory = false;
+		
         $scope.reset = function () {
-            $scope.color = null;
+			$scope.color = null;
+			$scope.otherText = null;
+        };
+		
+		$scope.setToGreen = function () {
+			$scope.color = $scope.options[1];
+        };
+		
+		$scope.setToOther = function () {
+			$scope.color = {
+				"value": "other",
+				"text": "This is some other text"
+			}
         };
     });
 </script>

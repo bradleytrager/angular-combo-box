@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-jsbeautifier");
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-coveralls');
 
@@ -49,10 +50,19 @@ module.exports = function(grunt) {
             },
         },
 
+        concat: {
+            dist: {
+                src: [
+                    'src/*.js', 'tmp/templates.js'
+                ],
+                dest: 'dist/angular-combo-box.js'
+            }
+        },
+
         uglify: {
             dist: {
                 files: {
-                    'dist/angular-combo-box.min.js': ['src/*.js', 'tmp/templates.js']
+                    'dist/angular-combo-box.min.js': ['dist/angular-combo-box.js']
                 }
             }
         },
@@ -86,11 +96,17 @@ module.exports = function(grunt) {
             all: {
                 files: ['src/*', 'test/*.js'],
                 tasks: ['default'],
+            },
+            notests: {
+                files: ['src/*', 'test/*.js'],
+                tasks: ['build'],
             }
         }
 
 
     });
 
-    grunt.registerTask('default', ['jshint', 'jsbeautifier', 'html2js', 'uglify:dist', 'karma:unit', 'coveralls']);
+    grunt.registerTask('build', ['jshint', 'jsbeautifier', 'html2js', 'concat:dist', 'uglify:dist']);
+    grunt.registerTask('test', ['karma:unit', 'coveralls']);
+    grunt.registerTask('default', ['build', 'test']);
 };

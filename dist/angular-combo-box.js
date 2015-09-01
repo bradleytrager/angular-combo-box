@@ -110,3 +110,63 @@ function comboBoxController($scope, $element, $timeout, $filter) {
         return null;
     }
 }
+
+angular.module('ngComboBox.directive', [])
+    .directive('comboBox', function($timeout) {
+        return {
+            restrict: 'E',
+            scope: {
+                options: '=',
+                comboModel: '=',
+                label: '@?',
+                inputClass: '=',
+                selectClass: '=',
+                required: '=?',
+                isValid: '=?',
+                isOtherSelected: '=?',
+                otherPlaceholder: '@?'
+            },
+            templateUrl: 'combo-box.html',
+            compile: function(el, attrs) {
+                if (!attrs.label) {
+                    attrs.label = '';
+                }
+                if (!attrs.otherPlaceholder) {
+                    attrs.otherPlaceholder = '';
+                }
+            },
+            controller: 'comboBoxController'
+        };
+    });
+
+angular.module('ngComboBox', [
+    'ngComboBox.directive',
+    'ngComboBox.controller',
+    'templates-main'
+]);
+
+angular.module('templates-main', ['combo-box.html']);
+
+angular.module("combo-box.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("combo-box.html",
+    "<ng-form name=\"comboForm\">\n" +
+    "	<select name=\"comboSelect\" \n" +
+    "			ng-model=\"selected\" \n" +
+    "			ng-class=\"selectClass\" \n" +
+    "			ng-change=\"setModelFromInput(selected)\" \n" +
+    "			ng-options=\"option.text for option in options track by option.value\" \n" +
+    "			ng-required=\"required\">\n" +
+    "		<option value=\"\">{{label}}</option>\n" +
+    "	</select>\n" +
+    "	<br />\n" +
+    "	<input 	name=\"comboText\" \n" +
+    "			type=\"text\" \n" +
+    "			placeholder=\"{{otherPlaceholder}}\" \n" +
+    "			ng-model=\"otherText\" \n" +
+    "			ng-class=\"inputClass\" \n" +
+    "			ng-change=\"setModelFromInput(selected)\" \n" +
+    "			ng-show=\"isOtherSelected\" \n" +
+    "			ng-required=\"required && isOtherSelected\" />\n" +
+    "</ng-form>\n" +
+    "");
+}]);
